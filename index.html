@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Element</title>
+    <link rel="icon" href="images/logo.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Custom Black & Red Theme */
+        :root {
+            --primary-color: #e63946;
+            /* Vibrant red */
+            --secondary-color: #1a1a1a;
+            /* Dark black */
+            --accent-color: #d90429;
+            /* Deeper red */
+            --light-bg: #f8f9fa;
+            --text-dark: #212529;
+            --text-light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            color: var(--text-dark);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--secondary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Attention Grabber */
+        .attention-grabber {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 40px auto;
+            max-width: 800px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.5);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-weight: 700;
+            color: var(--secondary-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 15px auto 0;
+        }
+
+        .bg-dark-section {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .bg-dark-section .section-title h2 {
+            color: white;
+        }
+
+        .bg-dark-section .section-title p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Services Section */
+        .service-card {
+            background: white;
+            border-radius: 5px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            margin-bottom: 30px;
+            text-align: center;
+            border-top: 4px solid var(--primary-color);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        /* Clients Section */
+        .client-logo {
+            height: 80px;
+            margin: 20px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .clients-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+        }
+
+        .clients-container.animate {
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Contact Section */
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .form-control {
+            height: 50px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(230, 57, 70, 0.25);
+        }
+
+        textarea.form-control {
+            height: auto;
+        }
+
+        /* About Section */
+        .about-img {
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 4px solid var(--primary-color);
+        }
+
+        .about-img img {
+            transition: transform 0.5s;
+            width: 100%;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-feature {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .about-feature-icon {
+            flex: 0 0 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+
+        /* Stats Counter */
+        .stats-counter {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 80px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 30px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Social Media & Footer */
+        .social-media {
+            background: var(--secondary-color);
+            padding: 40px 0;
+            color: white;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        footer {
+            background: #000;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero {
+                padding: 100px 0;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header with Logo and Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand logo" href="#">
+                    <img src="images/logo.png" alt="element logo" width="120px">
+                    <!-- <span>Black</span>Red -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#clients">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Powerful Solutions <span>Redefined</span></h1>
+            <p>We deliver cutting-edge business solutions with the boldness of black and the passion of red. Our
+                approach combines strength and energy to drive your success.</p>
+            <a href="#contact" class="btn btn-primary">Get Started Today</a>
+
+            <!-- Attention Grabber -->
+            <div class="attention-grabber">
+                <h3><i class="fas fa-bolt me-2"></i> LIMITED TIME: 20% OFF All Services for New Clients!</h3>
+                <!-- <p>Sign up before the end of the month and receive an exclusive discount on your first project.</p> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Services</h2>
+                <p>We offer premium services that combine strength and precision</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Custom websites built with the latest technologies for maximum performance and impact.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Mobile Apps</h3>
+                        <p>Powerful mobile applications designed to dominate your market space.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Digital Marketing</h3>
+                        <p>Aggressive marketing strategies that put your brand in the spotlight.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Brand Design</h3>
+                        <p>Bold visual identities that command attention and respect.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>SEO Dominance</h3>
+                        <p>Strategies to make your website rule the search results.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>Hosting Solutions</h3>
+                        <p>Robust hosting infrastructure that never backs down.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Counter -->
+    <section class="stats-counter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number" id="clientsCount">0</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number" id="projectsCount">0</div>
+                        <div class="stat-label">Projects Done</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number" id="awardsCount">0</div>
+                        <div class="stat-label">Awards Won</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number" id="teamCount">0</div>
+                        <div class="stat-label">Team Members</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Clients</h2>
+                <p>Trusted by industry leaders who demand excellence</p>
+            </div>
+            <div class="clients-container" id="clientsContainer">
+                <img src="images/clients/client1.png" alt="Client 1" class="client-logo">
+                <img src="images/clients/client2.png" alt="Client 2" class="client-logo">
+                <img src="images/clients/client3.png" alt="Client 3" class="client-logo">
+                <img src="images/clients/client4.png" alt="Client 4" class="client-logo">
+                <img src="images/clients/client2.png" alt="Client 5" class="client-logo">
+                <img src="images/clients/client1.png" alt="Client 6" class="client-logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-dark-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Ready to start your next project? Get in touch today</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="Your Email" required>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Subject">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mt-4 mt-lg-0">
+                        <h4>Our Headquarters</h4>
+                        <p><i class="fas fa-map-marker-alt me-2"></i>  Street,  country, state
+                        </p>
+                        <p><i class="fas fa-phone me-2"></i> +1 (555) 987-6543</p>
+                        <p><i class="fas fa-envelope me-2"></i> contact@element.com</p>
+                        <!-- <div class="mt-4">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215256018689!2d-73.9878446845938!3d40.7484401793279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+                                width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+                <p>Our story of power and precision</p>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-img">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                            alt="Our Team" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3>Our Philosophy</h3>
+                    <p>Founded in 2012, BlackRed was born from a desire to combine the strength and sophistication of
+                        black with the energy and passion of red. We believe in creating solutions that are both
+                        powerful and precise.</p>
+                    <p>Our team of experts brings together technical excellence with creative vision to deliver results
+                        that stand out in today's competitive landscape.</p>
+
+                    <div class="mt-4">
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div>
+                                <h5>Award-Winning Quality</h5>
+                                <p>Recognized by industry leaders for our exceptional work.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h5>Expert Team</h5>
+                                <p>Highly skilled professionals with years of experience.</p>
+                            </div>
+                        </div>
+                        <div class="about-feature">
+                            <div class="about-feature-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h5>Innovative Approach</h5>
+                                <p>Always pushing boundaries to deliver cutting-edge solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media">
+        <div class="container text-center">
+            <h3 class="text-white mb-4">Connect With Us</h3>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-dribbble"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+<footer>
+    <div class="container">
+        <p class="mb-0">&copy; 2025 Element. All Rights Reserved. | Designed with <i
+                style="color: var(--primary-color);"></i>Element</p>
+    </div>
+</footer>
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Animate service cards
+            const serviceCards = document.querySelectorAll('.service-card');
+
+            // Counter animation function
+            function animateCounter(id, target, duration = 2000) {
+                const element = document.getElementById(id);
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        element.textContent = target;
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 16);
+            }
+
+            const animateOnScroll = () => {
+                // Animate service cards
+                serviceCards.forEach((card, index) => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+
+                    if (cardPosition < screenPosition) {
+                        setTimeout(() => {
+                            card.classList.add('animate');
+                        }, index * 200);
+                    }
+                });
+
+                // Animate clients container
+                const clientsContainer = document.getElementById('clientsContainer');
+                const clientsPosition = clientsContainer.getBoundingClientRect().top;
+                const clientsScreenPosition = window.innerHeight / 1.3;
+
+                if (clientsPosition < clientsScreenPosition) {
+                    clientsContainer.classList.add('animate');
+                }
+
+                // Animate stats counter
+                const statsSection = document.querySelector('.stats-counter');
+                const statsPosition = statsSection.getBoundingClientRect().top;
+                const statsScreenPosition = window.innerHeight / 1.3;
+
+                if (statsPosition < statsScreenPosition && !statsSection.classList.contains('animated')) {
+                    statsSection.classList.add('animated');
+                    animateCounter('clientsCount', 150);
+                    animateCounter('projectsCount', 320);
+                    animateCounter('awardsCount', 24);
+                    animateCounter('teamCount', 45);
+                }
+            };
+
+            // Run once on load
+            animateOnScroll();
+
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
+
+            // Smooth scrolling for navbar links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    // Update active nav link
+                    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            // Update active nav link on scroll
+            window.addEventListener('scroll', function () {
+                const scrollPosition = window.scrollY;
+
+                document.querySelectorAll('section').forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
